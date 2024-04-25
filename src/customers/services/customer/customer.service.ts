@@ -24,4 +24,8 @@ export class CustomerService {
   getHello(): Customer[] {
     return this.customers;
   }
+
+  getCustomerById(id: number) {
+    return this.customers.find((fn) => fn.id === id);
+  }
 }
