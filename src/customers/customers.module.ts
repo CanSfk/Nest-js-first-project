@@ -8,6 +8,7 @@ import { CustomerController } from './controllers/customer/customer.controller';
 import { CustomerService } from './services/customer/customer.service';
 import { ValidateCustomerMiddleware } from './middleware/validate-customer-middleware';
 import { ValidateCustomerAccountMiddleware } from './middleware/validate-customer-account-middleware';
+import { NextFunction, Request, Response } from 'express';
 
 @Module({
   controllers: [CustomerController],
@@ -21,7 +22,14 @@ import { ValidateCustomerAccountMiddleware } from './middleware/validate-custome
 export class CustomersModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(ValidateCustomerMiddleware, ValidateCustomerAccountMiddleware)
+      .apply(
+        ValidateCustomerMiddleware,
+        ValidateCustomerAccountMiddleware,
+        (req: Request, res: Response, next: NextFunction) => {
+          console.log('Last middleware.');
+          next();
+        },
+      )
 
       // ?? CustomerController içinde 'exclude' ile hariç tutulan methodlar için middleware kullanmak.
       .exclude(
