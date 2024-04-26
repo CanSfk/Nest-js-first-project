@@ -1,5 +1,6 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import { UserService } from 'src/users/services/user/user.service';
+import { User } from 'src/users/types/User';
 
 @Controller('user')
 export class UserController {
@@ -8,7 +9,7 @@ export class UserController {
   ) {}
 
   @Get()
-  getHello(): string {
-    return this.userService.getHello();
+  getAllUsers(): User[] {
+    return this.userService.getAllUsers();
   }
 }
