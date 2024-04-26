@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/users/types/User';
+import { SerializedUser, User } from 'src/users/types';
 
 @Injectable()
 export class UserService {
@@ -11,19 +11,19 @@ export class UserService {
     },
 
     {
-      name: 'name-1',
+      name: 'name-2',
       email: 'email@gmail.com',
       password: 'password',
     },
 
     {
-      name: 'name-1',
+      name: 'name-3',
       email: 'email@gmail.com',
       password: 'password',
     },
   ];
 
   getAllUsers(): User[] {
-    return this.users;
+    return this.users.map((user) => new SerializedUser(user));
   }
 }

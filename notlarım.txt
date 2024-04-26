@@ -1,0 +1,8 @@
+SERIALIZED NEDIR NE ICIN KULLANILIR{
+- Bir nesneyi veya veri yapısının durumunu, bilgisayarda 
+depolanabilecek veya ağ üzerinden aktarılabilecek bir fromata dönüştürme işlemidir.
+Bu format genellikle JSON, XML veya binary formatlar olabilir.
+
+- Birçok kullanım amacı vardır bu projede kullanıcı bilgilerini güvenli bir şekilde döndürmek
+için kullanılmıştır.
+}
