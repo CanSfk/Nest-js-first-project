@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateCustomerDto } from 'src/customers/dtos/CreateCustmomer.dto';
 import { Customer } from 'src/customers/types/Customer';
 
 @Injectable()
@@ -27,5 +28,13 @@ export class CustomerService {
 
   getCustomerById(id: number) {
     return this.customers.find((fn) => fn.id === id);
+  }
+
+  creatCustomer(data: CreateCustomerDto) {
+    const length = this.customers.length;
+
+    const newLength = this.customers.push(data);
+
+    return length !== newLength;
   }
 }
