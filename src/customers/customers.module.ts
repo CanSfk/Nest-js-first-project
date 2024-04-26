@@ -7,6 +7,7 @@ import {
 import { CustomerController } from './controllers/customer/customer.controller';
 import { CustomerService } from './services/customer/customer.service';
 import { ValidateCustomerMiddleware } from './middleware/validate-customer-middleware';
+import { ValidateCustomerAccountMiddleware } from './middleware/validate-customer-account-middleware';
 
 @Module({
   controllers: [CustomerController],
@@ -20,7 +21,7 @@ import { ValidateCustomerMiddleware } from './middleware/validate-customer-middl
 export class CustomersModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(ValidateCustomerMiddleware)
+      .apply(ValidateCustomerMiddleware, ValidateCustomerAccountMiddleware)
 
       // ?? CustomerController içinde 'exclude' ile hariç tutulan methodlar için middleware kullanmak.
       .exclude(
