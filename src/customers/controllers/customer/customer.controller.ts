@@ -52,7 +52,7 @@ export class CustomerController {
   }
 
   @Post('/create')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(ValidationPipe)
   createCustomer(@Body() createCustomerDto: CreateCustomerDto) {
     const customer = this.customerService.creatCustomer(createCustomerDto);
 
