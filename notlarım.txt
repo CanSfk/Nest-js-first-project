@@ -6,3 +6,9 @@ Bu format genellikle JSON, XML veya binary formatlar olabilir.
 - Birçok kullanım amacı vardır bu projede kullanıcı bilgilerini güvenli bir şekilde döndürmek
 için kullanılmıştır.
 }
+
+HTTPEXCEPTIONFILTER NEDIR NE ICIN KULLANILIR{
+- Belirli bir işlem sırasında hataları yakalamak ve kullanıcıya bu hata mesajlarını göstermek için kullanılır.
+- Sürekli try, catch yazmak ve heryerde aynı hata mesajlarını kullanmak yerine bu hataların işlenmesini tek bir yerde 
+tutmak ve yönetmek için kullanılışlı bir yapı.
+}
