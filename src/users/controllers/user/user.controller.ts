@@ -3,10 +3,14 @@ import {
   Controller,
   Get,
   Inject,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
   UseInterceptors,
 } from '@nestjs/common';
+import { UserNotFoundException } from 'src/users/exceptions/UserNotFound.exception';
 import { UserService } from 'src/users/services/user/user.service';
-import { User } from 'src/users/types';
+import { SerializedUser, User } from 'src/users/types';
 
 @Controller('user')
 export class UserController {
@@ -19,5 +23,19 @@ export class UserController {
   @Get()
   getAllUsers(): User[] {
     return this.userService.getAllUsers();
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get(':id')
+  getUserById(@Param('id', ParseIntPipe) id: number) {
+    const user = this.userService.getUserById(id);
+
+    if (user) return new SerializedUser(user);
+
+    // ?? UserNotFoundException ile kendi hata mesajımı oluşturdum.
+    throw new UserNotFoundException();
+
+    // ?? NotFoundException nest js'nin sunmuş oluduğu hazır hata mesajı sınıfı.
+    // throw new NotFoundException();
   }
 }
