@@ -1,14 +1,21 @@
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Inject,
   NotFoundException,
   Param,
   ParseIntPipe,
+  Post,
   UseFilters,
   UseInterceptors,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
+import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { UserNotFoundException } from 'src/users/exceptions/UserNotFound.exception';
 import { HttpExceptionFilter } from 'src/users/filters/HttpException.filter';
 import { UserService } from 'src/users/services/user/user.service';
@@ -40,5 +47,18 @@ export class UserController {
 
     // ?? NotFoundException nest js'nin sunmuş oluduğu hazır hata mesajı sınıfı.
     // throw new NotFoundException();
+  }
+
+  @Post('create')
+  @UsePipes(ValidationPipe)
+  createUser(@Body() createUserDto: CreateUserDto) {
+    const user = this.userService.createUser(createUserDto);
+
+    if (user) return 'Kullanıcı başarılı bir şekilde eklendi.';
+
+    throw new HttpException(
+      'Ekleme işlemli sırasında bir hata oluştu',
+      HttpStatus.BAD_REQUEST,
+    );
   }
 }
